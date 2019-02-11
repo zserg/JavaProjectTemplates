@@ -11,7 +11,7 @@ public class ModelTest {
 	@Test
 	public void test_get_id() {
 		Model obj = new Model();
-		assertEquals("Hello!", obj.getId());
+		assertEquals(1, obj.getId());
 	}
 
 }

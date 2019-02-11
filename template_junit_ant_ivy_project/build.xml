@@ -51,5 +51,11 @@
 	  </junitlauncher>
     </target>
 
+	<target name="clean" description="Clean Up">
+		<delete dir="${classes.dir}"/>
+		<delete dir="${tests.classes.dir}"/>
+		<delete dir="${tests.report.dir}"/>
+	</target>
+
 </project>
 

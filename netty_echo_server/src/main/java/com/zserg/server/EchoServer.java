@@ -7,14 +7,14 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.socksx.v4.Socks4ClientDecoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
+import io.netty.util.internal.logging.InternalLoggerFactory;
+import io.netty.util.internal.logging.Slf4JLoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
-
-//import io.netty.util.internal.logging.InternalLoggerFactory;
-//import io.netty.util.internal.logging.Slf4JLoggerFactory;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 
 public class EchoServer {
     private final int port;
@@ -24,8 +24,9 @@ public class EchoServer {
     }
 
     public static void main(String[] args) throws Exception {
-//        InternalLoggerFactory.setDefaultFactory(new Slf4JLoggerFactory());
-//        Logger logger = LoggerFactory.getLogger(EchoServer.class);
+        InternalLoggerFactory.setDefaultFactory(new Slf4JLoggerFactory());
+        Logger logger = LoggerFactory.getLogger(EchoServer.class);
+        logger.info("Yes");
         if (args.length != 1) {
             System.out.println("Usage: " + EchoServer.class.getSimpleName() + " <port>");
             return;
@@ -45,7 +46,9 @@ public class EchoServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
+                            ch.pipeline().addLast("logger", new LoggingHandler(LogLevel.DEBUG));
                             ch.pipeline().addLast(serverHandler);
+
                         }
                     });
             ChannelFuture f = b.bind().sync();

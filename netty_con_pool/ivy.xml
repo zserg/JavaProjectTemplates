@@ -1,0 +1,18 @@
+<ivy-module version="2.0">
+    <info organisation="ru.zserg" module="template"/>
+    <dependencies>
+        <dependency org="org.junit.jupiter" name="junit-jupiter-api" rev="5.4.0"/>
+        <dependency org="org.junit.jupiter" name="junit-jupiter-engine" rev="5.4.0"/>
+        <dependency org="org.junit.platform" name="junit-platform-launcher" rev="1.4.0"/>
+
+        <dependency org="org.slf4j" name="slf4j-simple" rev="1.7.25"/>
+        <dependency org="org.slf4j" name="slf4j-api" rev="1.7.25"/>
+
+        <dependency org="io.netty" name="netty-all" rev="4.1.33.Final">
+            <exclude org="io.netty" name="netty-tcnative"/>
+        </dependency>
+
+    </dependencies>
+</ivy-module>
+
+

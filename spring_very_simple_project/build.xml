@@ -1,0 +1,62 @@
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="MCVSimpleProject" default="compile" basedir=".">
+	<description>
+		simple Project
+	</description>
+
+	<property file="build.properties" />
+
+	<path id="project.class.path">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<pathelement path="${classes.dir}/"/>
+		<pathelement path="${tests.classes.dir}"/>
+	</path>
+
+	<target name="bootstrap" description="Install ivy">
+		<mkdir dir="${user.home}/.ant/lib"/>
+		<get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.3.0/ivy-2.3.0.jar"/>
+	</target>
+
+	<target name="resolve" description="--> retrieve dependencies with Ivy">
+		<ivy:retrieve pattern="lib/[artifact]-[type]-[revision].[ext]" />
+	</target>
+
+	<target name="compile" depends="" description="compile source code">
+		<mkdir dir="${classes.dir}" />
+        <javac destdir="${classes.dir}" debug="true"  includeantruntime="false"
+			srcdir="${src.dir}" classpathref="project.class.path">
+		</javac>
+
+		<mkdir dir="${tests.classes.dir}" />
+        <javac destdir="${tests.classes.dir}" debug="true"  includeantruntime="false"
+            srcdir="${tests.src.dir}" classpathref="project.class.path">
+		</javac>
+	</target>
+
+
+    <target name="junit" depends="compile">
+
+		<mkdir dir="${tests.report.dir}"/>
+
+      <junitlauncher printsummary="yes" haltonfailure="no" >
+		  <classpath refid="project.class.path" />
+		  <testclasses outputdir="${tests.report.dir}">
+			  <fileset dir="${tests.classes.dir}"/>
+			  <!--<listener type="legacy-plain" sendSysErr="false" sendSysOut="false"/>-->
+			  <!--<listener type="legacy-brief" sendSysOut="true"/>-->
+			  <!--<listener type="legacy-xml" sendSysErr="true" sendSysOut="true"/>-->
+
+		  </testclasses>
+
+	  </junitlauncher>
+    </target>
+
+	<target name="clean" description="Clean Up">
+		<delete dir="${classes.dir}"/>
+		<delete dir="${tests.classes.dir}"/>
+		<delete dir="${tests.report.dir}"/>
+	</target>
+
+</project>
+

@@ -4,6 +4,9 @@
         <dependency org="org.junit.jupiter" name="junit-jupiter-api" rev="5.4.0"/>
         <dependency org="org.junit.jupiter" name="junit-jupiter-engine" rev="5.4.0"/>
         <dependency org="org.junit.platform" name="junit-platform-launcher" rev="1.4.0"/>
+        <dependency org="org.projectlombok" name="lombok" rev="1.18.6" />
+        <dependency org="org.slf4j" name="slf4j-api" rev="1.8.0-beta4"/>
+        <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.8.0-beta4"/>
 
     </dependencies>
 </ivy-module>
